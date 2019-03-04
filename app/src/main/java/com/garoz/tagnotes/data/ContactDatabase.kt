@@ -1,4 +1,4 @@
-package com.mogalabs.tagnotes.data
+package com.garoz.tagnotes.data
 
 import android.content.Context
 import android.os.AsyncTask
@@ -7,21 +7,21 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Note::class], version = 1)
-abstract class NoteDatabase : RoomDatabase() {
+@Database(entities = [Contact::class], version = 3)
+abstract class ContactDatabase : RoomDatabase() {
 
-    abstract fun noteDao(): NoteDao
+    abstract fun contactDao(): ContactDao
 
 
     companion object {
-        private var instance: NoteDatabase? = null
+        private var instance: ContactDatabase? = null
 
-        fun getInstance(context: Context): NoteDatabase? {
+        fun getInstance(context: Context): ContactDatabase? {
             if (instance == null) {
-                synchronized(NoteDatabase::class) {
+                synchronized(ContactDatabase::class) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        NoteDatabase::class.java, "note_database"
+                        ContactDatabase::class.java, "note_database"
                     )
                         .fallbackToDestructiveMigration() // when version increments, it migrates (deletes db and creates new) - else it crashes
                         .addCallback(roomCallback)
@@ -44,13 +44,13 @@ abstract class NoteDatabase : RoomDatabase() {
         }
     }
 
-    class PopulateDbAsyncTask(db: NoteDatabase?) : AsyncTask<Unit, Unit, Unit>() {
-        private val noteDao = db?.noteDao()
+    class PopulateDbAsyncTask(db: ContactDatabase?) : AsyncTask<Unit, Unit, Unit>() {
+        private val noteDao = db?.contactDao()
 
         override fun doInBackground(vararg p0: Unit?) {
-            noteDao?.insert(Note("title 1", "description 1", 1))
-            noteDao?.insert(Note("title 2", "description 2", 2))
-            noteDao?.insert(Note("title 3", "description 3", 3))
+            noteDao?.insert(Contact("name 1", "email 1", "1", 1))
+            noteDao?.insert(Contact("name 2", "email 2", "2", 2))
+            noteDao?.insert(Contact("name 3", "email 3", "3", 3))
         }
     }
 

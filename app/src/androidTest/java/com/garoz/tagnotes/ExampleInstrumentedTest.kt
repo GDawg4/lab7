@@ -1,4 +1,4 @@
-package com.mogalabs.tagnotes
+package com.garoz.tagnotes
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

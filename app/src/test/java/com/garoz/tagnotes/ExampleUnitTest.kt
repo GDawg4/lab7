@@ -1,4 +1,4 @@
-package com.mogalabs.tagnotes
+package com.garoz.tagnotes
 
 import org.junit.Test
 
